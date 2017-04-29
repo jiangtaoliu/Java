@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-
+// what is github two local for a remote repository
 public class EchoClient {
     public static void main(String[] args) throws InterruptedException
     {
