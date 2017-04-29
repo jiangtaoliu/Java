@@ -1,0 +1,376 @@
+Liu, Jiangtao (Jett)  1474002
+Li, Bin      1482281
+
+Network Programming assignment 1
+detail please source code (eclipse can open this project)
+
+
+1. 
+
+public class HelloWorld {
+
+	public static void main(String[] args) {
+		System.out.println("Hello world: ");
+	}
+}
+
+
+2. 
+public class HelloWorld {
+
+	public static void main(String[] args) {
+		System.out.println("Hello world: " + args[0]);
+	}
+}
+Output:
+jets-MacBook-Air:src jettliu$ java HelloWorld Jett
+Hello world: Jett
+
+
+3. 
+public class HelloWorld {
+
+	public static void main(String[] args) {
+		int x = 6;
+		int y = 9;
+		
+		if (x>y)
+		{
+			int t=x; y = x;
+		    x= t;
+		    System.out.println("x = " + x + " and y= "+y);
+		} 
+		
+		else 
+		{
+			System.out.println("Have a nice day!");
+		} 
+	}
+}
+Output:
+Have a nice day!
+
+
+public class HelloWorld {
+
+	public static void main(String[] args) {
+		int x = 5;
+		int y = 2;
+		
+		if (x>y)
+		{
+			int t=x; y = x;
+		    x= t;
+		    System.out.println("x = " + x + " and y= "+y);
+		} 
+		
+		else 
+		{
+			System.out.println("Have a nice day!");
+		} 
+	}
+}
+Output:
+x = 5 and y= 5
+
+
+4. 
+
+public class PowersOfTwo {
+	public static void main(String[] args) {
+		// last power of two to print
+		int N = Integer.parseInt(args[0]); 
+		int i = 0; // loop control counter 
+		int v = 1; // current power of two 
+		while (i <= N) {
+			System.out.println(i + " " + v); 
+			i = i + 1;
+			v = 2 * v;
+		} 
+	}
+}
+Output:
+0 1
+1 2
+2 4
+3 8
+4 16
+5 32
+6 64
+
+public class PowersOfTwo {
+	public static void main(String[] args) {
+		// last power of two to print
+		int N = Integer.parseInt(args[0]); 
+		int i = 0; // loop control counter 
+		int v = 1; // current power of two 
+		for (i = 0; i <= N; i++) {
+			System.out.println(i + " " + v); 
+			v = 2 * v;
+		} 
+	}
+}
+Output:
+0 1
+1 2
+2 4
+3 8
+4 16
+5 32
+6 64
+
+
+
+5. 
+public class Cubes{
+	
+	public static int cube(int i) {
+		i = i * i * i;
+		return i; 
+	}
+	
+	public static void main(String[] args) { 
+		
+		int N = Integer.parseInt(args[0]); 
+		for (int i = 1; i <= N; i++)
+			System.out.println(i + " " + cube(i));
+	}
+}
+Output:
+1 1
+2 8
+3 27
+
+
+6.
+public class TestCubes {
+
+	public static void main(String[] args) { 
+		
+		Cubes cb = new Cubes();
+		
+		int N = Integer.parseInt(args[0]); 
+		for (int i = 1; i <= N; i++)
+			System.out.println(i + " " + cb.cube(i));
+	}
+
+}
+public class Cubes{
+	
+	public int cube(int i) {
+		i = i * i * i;
+		return i; 
+	}
+}
+Output:
+1 1
+2 8
+3 27
+
+
+7.
+public class Question7 {
+
+	public static void main(String[] args) {
+		double[] x = { 0.3, 0.6, 0.1 }; 
+		double[] y = { 0.5, 0.1, 0.4 }; 
+		int N = x.length;
+		double sum = 0.0;
+		for (int i=0; i<N; i++)
+		{ 
+			sum = sum + x[i]*y[i];
+			System.out.println("i is " + i +" and sum is " + sum);
+		}
+	}
+}
+Output:
+i is 0 and sum is 0.15
+i is 1 and sum is 0.21
+i is 2 and sum is 0.25
+
+7b.
+/*
+ * in: n, x, y
+ * out: z
+ */
+public class Question7b {
+
+	public void sum2Vectors(int n, double[][] x, double[][] y, double[][] z) {
+		
+		for (int i=0; i<n; i++)
+		{
+			for (int t=0; t<n; t++)
+			{
+				z[i][t] = x[i][t] + y[i][t];
+				//System.out.println("i is " + i + " t is " + t + " and sum is " + z[i][t]);
+			}
+		}
+	}
+
+}
+
+
+public class Question7btest {
+
+	public static void main(String[] args) {
+		
+		int N = Integer.parseInt(args[0]);
+		
+		double [][] a = new double[N][N];
+		double [][] b = new double[N][N];
+		double [][] c = new double[N][N];
+		
+		for (int i=0; i<N; i++)
+		{
+			for (int t=0; t<N; t++)
+			{
+				double r = Math.random();
+				a[i][t] = r;
+				double s = Math.random();
+				b[i][t] = s;
+				System.out.println("i is " + i + " t is " + t + " and a is " + a[i][t]+ " and b is " + b[i][t]);
+			}
+		}
+		
+		Question7b q7 = new Question7b();
+		q7.sum2Vectors(N, a, b, c);
+		
+		System.out.println("==================================================");
+		for (int i=0; i<N; i++)
+		{
+			for (int t=0; t<N; t++)
+			{
+				System.out.println("i is " + i + " t is " + t + " and sum is " + c[i][t]);
+			}
+		}
+	}
+}
+Output:
+i is 0 t is 0 and a is 0.32318024653138877 and b is 0.9816532299334336
+i is 0 t is 1 and a is 0.08146091227662244 and b is 0.6850096348963824
+i is 0 t is 2 and a is 0.1597972556006757 and b is 0.444359583460439
+i is 1 t is 0 and a is 0.2219009577382941 and b is 0.79308820307254
+i is 1 t is 1 and a is 0.5911339802671491 and b is 0.2671715977902538
+i is 1 t is 2 and a is 0.5607620981619477 and b is 0.9398033622170784
+i is 2 t is 0 and a is 0.616737614609406 and b is 0.6898912376454668
+i is 2 t is 1 and a is 0.018535461801341135 and b is 0.027094313250129454
+i is 2 t is 2 and a is 0.6541829662924097 and b is 0.4860772715229488
+==================================================
+i is 0 t is 0 and sum is 1.3048334764648224
+i is 0 t is 1 and sum is 0.7664705471730049
+i is 0 t is 2 and sum is 0.6041568390611147
+i is 1 t is 0 and sum is 1.0149891608108341
+i is 1 t is 1 and sum is 0.8583055780574029
+i is 1 t is 2 and sum is 1.500565460379026
+i is 2 t is 0 and sum is 1.3066288522548728
+i is 2 t is 1 and sum is 0.04562977505147059
+i is 2 t is 2 and sum is 1.1402602378153586
+
+
+8.
+source code, Please see the detail in package Question8.
+it shows:
+coffee maker input a temperature to make a cup of coffee, then serve it to a customer, 
+the customer will taste it, and give a feed back: it is cold or hot and so on.
+
+
+9.
+package Question9;
+
+//define a public class named Prime
+public class Prime {
+	    
+	//generic main method
+	public static void main(String[] args) {
+		
+		//Simple program to identify the first n prime numbers
+		//A prime number is a number that is only divisable by 1 or itself // See http://en.wikipedia.org/wiki/Prime_number for more information // A factor is any number that equally divides another another number
+		//initially we are only interested in the first 20 numbers
+		
+		int n = 20;
+		// start the loop from 2
+		for (int number = 2; number<=20;number++)
+		{
+			//simple flag to toggle between prime and composite
+			boolean isPrime = true;
+			
+			//what are the factors of the variable number?
+			for (int factor = 2;factor <number; factor++)
+			{
+				/* test if a particular number / factor combination results in a remainder if the number is equally divided
+				by a factor higher than 1 then it must be a composite number */
+				if(number % factor == 0)
+				{
+					isPrime = false;
+					break; 
+				}
+			} // end inner factor loop 
+			
+			if(isPrime)
+			{
+				System.out.println(number+" is prime."); 
+			}
+			else
+			{
+				System.out.println(number+" is composite.");
+			}
+		} // end outer number loop 
+	} // end main method
+} // end class
+
+
+package Question9;
+
+import java.util.ArrayList;
+
+public class PrimeByList {
+	//generic main method
+	public static void main(String[] args) {
+		
+		//Simple program to identify the first n prime numbers
+		//A prime number is a number that is only divisable by 1 or itself 
+		// See http://en.wikipedia.org/wiki/Prime_number for more information 
+		// A factor is any number that equally divides another another number
+		//initially we are only interested in the first 20 numbers
+		
+		//int n = 20;
+		
+		// start the loop from 2
+		for (int number = 2; number<=20;number++)
+		{
+			//simple flag to toggle between prime and composite
+			boolean isPrime = true;
+			ArrayList<Integer> factorlist = new ArrayList<Integer>();
+			//what are the factors of the variable number?
+			for (int factor = 2;factor <number; factor++)
+			{
+				/* test if a particular number 
+				factor combination results in a remainder if the number is equally divided
+				by a factor higher than 1 then it must be a composite number */
+				if(number % factor == 0)
+				{
+					isPrime = false;
+					factorlist.add(factor);
+				}
+			} // end inner factor loop 
+			
+			if(isPrime)
+			{
+				System.out.println(number+" is prime."); 
+			}
+			else
+			{
+				System.out.println(number+" is composite.");
+				System.out.println("The factors include " + factorlist);
+			}
+		} // end outer number loop 
+	} // end main method
+}
+
+
+10.
+please see the source code
+
+
+
+
