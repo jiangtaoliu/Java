@@ -1,1 +1,3 @@
 # Java
+1. notice the get file.getParent() return \home\... but linux need /home/...
+   if you use cd this directory, it always return "No such file or directory"
