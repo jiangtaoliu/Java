@@ -1,0 +1,101 @@
+forward from http://syncor.blogspot.com/2013/09/getting-started-with-log4j-2-in-eclipse.html
+
+As you probably know from reading this blog, I write most of my code in either C# or C++. Recently I’ve been doing some experimenting with Java. I was interested in using a logging framework with Eclipse and Apache’s Log4j 2 seemed like a prudent choice.  While I’m sure there are many ways to use this framework inside Eclipse; the following steps worked for me with the Kepler release of Eclipse, but should also work with Juno and Indigo.
+
+
+This is one of the topics I go through in my Eclipse Guided Tour – Part 2 course on Pluralsight . 
+Set up the log4j 2 library
+These steps only needs to be done once for all the projects in your workspace.
+
+Download the framework and unzip it. You can put it anywhere it’s easily accessible from Eclipse. I just decided to use the Program Files/Java folder under Windows.
+Type “user” into Quick Access and select the User/Libraries Java Build Path option under preferences.
+Click the New… button on the right (see the blue A in image below)
+In the User library name: text box provide a name like log4j 2
+Highlight the newly added name and click the Add External JARS… button (see the blue B in the image).
+In the resulting dialog select the log4j-api-2.0*.jar and the log4j-core-2.0*.jar  files as shown in the image. The * will have the current suffix for your files which will likely be different from those shown as the product is currently in late beta.  Click the Open button to select the files and close the dialog.
+Click OK to dismiss the Preferences dialog
+image
+Add the Library to the ClassPath for your project
+Right Click on your Project and Select Properties… to launch the Properties for your project
+
+Select the Java Build Path Item and Select the Libraries tab
+Click the Add Library… button
+Select User Library and click on Next
+Select the log4j library and click on Finish
+SNAGHTML1a5f8291
+
+Set up a configuration file
+You’ll probably want to create a configuration file for each project but you could share one across multiple projects.
+
+Create a new folder in your project at the root level by right-clicking on your project and select New->Folder.
+Create a new file by right-clicking on the folder you just created and click New->File. Name this file something like log4j2.xml.
+If you’re familiar with log4j configuration files you can type in the configuration data or paste in this sample which logs everything at trace level and above to the console.  Save the file once you are done. Note the logger name is set to “hello”. This is because my package name is hello. You can make the name even more precise but I want it to work for the entire package. This name is also relevant in the section below where we use the logger in code.  You’ll need a name that corresponds to your class or package name. (Edited 1/21/2014 per comment suggestion by Anas )
+<?xml version="1.0" encoding="UTF-8"?> 
+<Configuration> 
+  <Appenders> 
+    <Console name="STDOUT" target="SYSTEM_OUT"> 
+      <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/> 
+    </Console> 
+  </Appenders> 
+  <Loggers> 
+    <Logger name="hello" level="info"/> 
+    <Root level="trace"> 
+      <AppenderRef ref="STDOUT"/> 
+    </Root> 
+  </Loggers> 
+</Configuration>
+
+Set up your Run Configuration
+You’ll do this step once for each run or debug configuration. We need to make the xml configuration file available when running our project. From the Run menu select Run Configurations… In the dialog switch to the Classpath tab and follow these steps (see the image).
+
+Select the User Entries.
+Click the Advanced… button.
+In the resulting dialog select the Add Folders radio button.
+Click OK.
+This will launch a dialog allowing you to select a folder from your workspace; open up the current project.
+Select the Log4j2 folder you created.
+Click the OK button and close any dialogs just opened.
+image
+
+Modify Your Code
+You’ll be performing these steps in any class in your project where you want to log information. Create some Eclipse editor templates to make your life easier.
+
+Add imports for both the logger and logger manager:
+
+import org.apache.logging.log4j.Logger; 
+import org.apache.logging.log4j.LogManager;
+
+You can create a static member at the class level using this
+
+private static final Logger log4j = LogManager.getLogger(HelloLog4j.class 
+        .getName());
+
+In my case I created this class inside a package named “hello”, which is why I set the name of my  logger to “hello” in the configuration field above. Then in a method you can use the log4j field to do some logging. For example:
+
+log4j.trace("This is a trace message."); 
+log4j.debug("This is  a debug message."); 
+log4j.info("This is an info message."); 
+log4j.error("This is an error message");
+
+Logging to a file
+You can add a file logger with the code shown in green. Notice that AppendRef is inside the logger named “hello”. In the code above the class shown was inside a package with the name “hello”. The call to class.getName() returns “hello.HelloLog4j”. Since “hello” is seen as a parent logger to hello.HelloLog4j the messages get logged in the file. If you want you can just hard code the logger name in the configuration file and in your code. The technique shown above allows more granularity in controlling messages via the configuration file.
+
+<?xml version="1.0" encoding="UTF-8"?> 
+<Configuration> 
+  <Appenders> 
+    <File name="FileLogger" fileName="HelloLog4j.log" append="false"> 
+      <PatternLayout pattern="%d %t %-5p %c{2} - %m%n"/> 
+    </File> 
+    <Console name="STDOUT" target="SYSTEM_OUT"> 
+      <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/> 
+    </Console> 
+  </Appenders> 
+  <Loggers> 
+    <Logger name="hello" level="trace"> 
+      <AppenderRef ref="FileLogger"/> 
+    </Logger> 
+    <Root level="trace"> 
+      <AppenderRef ref="STDOUT"/> 
+    </Root> 
+  </Loggers> 
+</Configuration>
